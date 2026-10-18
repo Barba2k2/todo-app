@@ -30,3 +30,6 @@ bin/
 *.bak
 *.swp
 *~
+
+# Docs
+docs/plans/

@@ -1,102 +1,46 @@
-# 📝 TODO App - Kotlin
+# TODO App — Kotlin Multiplatform (Android + iOS)
 
-Um aplicativo de lista de tarefas (TODO) simples e interativo em Kotlin com interface de linha de comando (CLI).
+App de gerenciamento pessoal de tarefas com Clean Architecture, KMP, UI separada por plataforma (Compose), autenticacao JWT e CRUD completo.
 
-## 🚀 Funcionalidades
+## ✅ Funcionalidades
 
-- ➕ Adicionar novos TODOs com título, descrição e prioridade
-- 📋 Listar todos os TODOs
-- 🔍 Filtrar TODOs por status (Pendente, Em Progresso, Completo)
-- ✏️ Atualizar status dos TODOs
-- 🗑️ Deletar TODOs
-- 📊 Ver estatísticas (total, por status, por prioridade, taxa de conclusão)
+- Auth: Login, Cadastro, Esqueci Senha, Reset Senha
+- TODOs: listar, filtrar, criar, editar, toggle, deletar
+- Config: base URL por ambiente + tema claro/escuro
 
-## 📦 Estrutura do Projeto
+## 🧱 Arquitetura
 
-```
-todo-app/
-├── src/main/kotlin/com/todoapp/
-│   ├── Main.kt                      # Ponto de entrada
-│   ├── model/
-│   │   └── Todo.kt                  # Modelo de dados
-│   ├── repository/
-│   │   └── TodoRepository.kt        # Gerenciamento em memória
-│   └── ui/
-│       └── TodoCLI.kt               # Interface CLI
-├── build.gradle.kts                 # Configuração do Gradle
-└── settings.gradle.kts
-```
-
-## 🛠️ Requisitos
-
-- Java JDK 17 ou superior
-- Gradle (ou use o wrapper incluído)
-
-## ▶️ Como Executar
-
-### Opção 1: Criar e executar a distribuição (recomendado)
-
-```bash
-cd todo-app
-./gradlew installDist
-./build/install/todo-app/bin/todo-app
-```
-
-### Opção 2: Usando Gradle run (pode ter problemas com input)
-
-```bash
-./gradlew run --console=plain
-```
-
-### Opção 3: Compilar e executar JAR
-
-```bash
-./gradlew build
-java -cp build/libs/todo-app-1.0.0.jar com.todoapp.MainKt
-```
-
-## 📖 Como Usar
-
-Ao executar o app, você verá um menu interativo:
+Multi‑módulo KMP:
 
 ```
-📝 Menu Principal
-========================================
-1. ➕ Adicionar TODO
-2. 📋 Listar todos
-3. 🔍 Filtrar por status
-4. ✏️ Atualizar status
-5. 🗑️ Deletar TODO
-6. 📊 Estatísticas
-0. 🚪 Sair
+:domain   -> entidades + use cases + contratos
+:data     -> Ktor + DTOs + mappers + storage
+:app-android -> UI Android (Compose + Hilt)
+:app-ios     -> UI iOS (Compose Multiplatform)
 ```
 
-### Adicionar TODO
-- Informe o título (obrigatório)
-- Informe a descrição (opcional)
-- Escolha a prioridade: LOW (1), MEDIUM (2), HIGH (3)
+## 🔧 Requisitos
 
-### Gerenciar TODOs
-- Use o ID exibido para atualizar ou deletar TODOs
-- TODOs podem ter 3 status: PENDING, IN_PROGRESS, COMPLETED
+- JDK 17+
+- Android Studio (para Android)
+- Xcode (para iOS)
 
-## 🎯 Modelo de Dados
+## ▶️ Android
 
-### Todo
-- `id`: UUID único
-- `title`: Título da tarefa
-- `description`: Descrição opcional
-- `priority`: LOW, MEDIUM ou HIGH
-- `status`: PENDING, IN_PROGRESS ou COMPLETED
-- `createdAt`: Data/hora de criação
-- `updatedAt`: Data/hora da última atualização
-
-## 🧪 Executar Testes
-
-```bash
-./gradlew test
+```
+./gradlew :app-android:assembleDebug
 ```
 
-## 📝 Licença
+No app, ajuste a Base URL em **Config** (ex.: `http://10.0.2.2:5001` no emulador).
+Defaults:
+- Android (emulador): `http://10.0.2.2:5001`
+- iOS (simulador): `http://localhost:5001`
 
-Este é um projeto de exemplo para aprendizado.
+## ▶️ iOS
+
+O módulo `:app-ios` gera um framework (`TodoIos`).
+Crie um projeto iOS no Xcode e aponte para o framework gerado.
+
+## 📄 Docs
+
+- Design doc: `docs/plans/2025-12-27-todo-kmp-design.md`

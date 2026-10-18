@@ -1,0 +1,1078 @@
+// 20251227185628
+// http://localhost:5001/swagger/v1/swagger.json
+
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MinhaApi",
+    "description": "API de TODOs com autenticação JWT\n\n**Priority Values:** Low=0, Medium=1, High=2, Urgent=3",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!",
+                "confirmPassword": "SecureP@ssw0rd!"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!",
+                "confirmPassword": "SecureP@ssw0rd!"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!",
+                "confirmPassword": "SecureP@ssw0rd!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                },
+                "example": {
+                  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Email 'john.doe@example.com' is already taken.",
+                    "Passwords do not match."
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "password": "SecureP@ssw0rd!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZmE4NWY2NC01NzE3LTQ1NjItYjNmYy0yYzk2M2Y2NmFmYTYiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiZXhwIjoxNzA5MzI0ODAwfQ.xxxxx",
+                  "expiresAt": "2025-12-27T22:56:27.090341Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Invalid email or password."
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/forgot-password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "If the email exists, a reset token was sent."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/reset-password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "token": "CfDJ8N7aLPROWepEky2FULeEzgs...",
+                "newPassword": "NewSecureP@ss123!",
+                "confirmPassword": "NewSecureP@ss123!"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "token": "CfDJ8N7aLPROWepEky2FULeEzgs...",
+                "newPassword": "NewSecureP@ss123!",
+                "confirmPassword": "NewSecureP@ss123!"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              },
+              "example": {
+                "email": "john.doe@example.com",
+                "token": "CfDJ8N7aLPROWepEky2FULeEzgs...",
+                "newPassword": "NewSecureP@ss123!",
+                "confirmPassword": "NewSecureP@ss123!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Password reset successfully."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Invalid or expired reset token.",
+                    "Passwords do not match."
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Gets the current authenticated user's profile.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                },
+                "example": {
+                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "email": "john.doe@example.com"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Todos": {
+      "get": {
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Gets all TODOs for the authenticated user with optional filtering and sorting.",
+        "parameters": [
+          {
+            "name": "isCompleted",
+            "in": "query",
+            "description": "Filter by completion status (true/false)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "description": "Filter by priority (Low=0, Medium=1, High=2, Urgent=3)",
+            "schema": {
+              "$ref": "#/components/schemas/TodoPriority"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort field: title, dueDate, priority, createdAt (default: createdAt)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortDescending",
+            "in": "query",
+            "description": "Sort descending (default: false)",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TodoDto"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "title": "Implement user authentication",
+                    "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                    "dueDate": "2026-01-03T21:56:27.0941433Z",
+                    "priority": "High",
+                    "isCompleted": false,
+                    "completedAt": null,
+                    "createdAt": "2025-12-25T21:56:27.0941451Z",
+                    "updatedAt": null
+                  },
+                  {
+                    "id": "4fa85f64-5717-4562-b3fc-2c963f66afa7",
+                    "title": "Write unit tests",
+                    "description": "Create comprehensive unit tests for all services and repositories",
+                    "dueDate": "2025-12-30T21:56:27.0941456Z",
+                    "priority": "Medium",
+                    "isCompleted": true,
+                    "completedAt": "2025-12-27T19:56:27.0941457Z",
+                    "createdAt": "2025-12-22T21:56:27.0941461Z",
+                    "updatedAt": "2025-12-27T19:56:27.0941461Z"
+                  },
+                  {
+                    "id": "5fa85f64-5717-4562-b3fc-2c963f66afa8",
+                    "title": "Deploy to production",
+                    "description": null,
+                    "dueDate": "2026-01-10T21:56:27.0941463Z",
+                    "priority": "Urgent",
+                    "isCompleted": false,
+                    "completedAt": null,
+                    "createdAt": "2025-12-26T21:56:27.0941464Z",
+                    "updatedAt": null
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Todo with ID '3fa85f64-5717-4562-b3fc-2c963f66afa6' was not found."
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Todos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication",
+                "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                "dueDate": "2026-01-03T21:56:27.0951055Z",
+                "priority": "High"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication",
+                "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                "dueDate": "2026-01-03T21:56:27.0951055Z",
+                "priority": "High"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication",
+                "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                "dueDate": "2026-01-03T21:56:27.0951055Z",
+                "priority": "High"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoDto"
+                },
+                "example": {
+                  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                  "title": "Implement user authentication",
+                  "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                  "dueDate": "2026-01-03T21:56:27.0952085Z",
+                  "priority": "High",
+                  "isCompleted": false,
+                  "completedAt": null,
+                  "createdAt": "2025-12-27T21:56:27.0952091Z",
+                  "updatedAt": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Title is required.",
+                    "Title must be between 3 and 200 characters.",
+                    "Due date must be in the future."
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Todos/{id}": {
+      "get": {
+        "tags": [
+          "Todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoDto"
+                },
+                "example": {
+                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "title": "Implement user authentication",
+                  "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                  "dueDate": "2026-01-03T21:56:27.0958658Z",
+                  "priority": "High",
+                  "isCompleted": false,
+                  "completedAt": null,
+                  "createdAt": "2025-12-27T21:56:27.0958669Z",
+                  "updatedAt": null
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Todo with ID '3fa85f64-5717-4562-b3fc-2c963f66afa6' was not found."
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication (Updated)",
+                "description": "Add JWT authentication with refresh tokens, role-based authorization, and OAuth2 support",
+                "dueDate": "2026-01-10T21:56:27.1001292Z",
+                "priority": "Urgent",
+                "isCompleted": false
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication (Updated)",
+                "description": "Add JWT authentication with refresh tokens, role-based authorization, and OAuth2 support",
+                "dueDate": "2026-01-10T21:56:27.1001292Z",
+                "priority": "Urgent",
+                "isCompleted": false
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoRequest"
+              },
+              "example": {
+                "title": "Implement user authentication (Updated)",
+                "description": "Add JWT authentication with refresh tokens, role-based authorization, and OAuth2 support",
+                "dueDate": "2026-01-10T21:56:27.1001292Z",
+                "priority": "Urgent",
+                "isCompleted": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoDto"
+                },
+                "example": {
+                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "title": "Implement user authentication (Updated)",
+                  "description": "Add JWT authentication with refresh tokens, role-based authorization, and OAuth2 support",
+                  "dueDate": "2026-01-10T21:56:27.1002871Z",
+                  "priority": "Urgent",
+                  "isCompleted": false,
+                  "completedAt": null,
+                  "createdAt": "2025-12-24T21:56:27.1002874Z",
+                  "updatedAt": "2025-12-27T21:56:27.1002875Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Todo with ID '3fa85f64-5717-4562-b3fc-2c963f66afa6' was not found.",
+                    "Title is required.",
+                    "You don't have permission to update this todo."
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Todo with ID '3fa85f64-5717-4562-b3fc-2c963f66afa6' was not found.",
+                    "You don't have permission to delete this todo."
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Todos/{id}/toggle": {
+      "patch": {
+        "tags": [
+          "Todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoDto"
+                },
+                "example": {
+                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "title": "Implement user authentication",
+                  "description": "Add JWT authentication with refresh tokens and role-based authorization",
+                  "dueDate": "2026-01-03T21:56:27.101228Z",
+                  "priority": "High",
+                  "isCompleted": true,
+                  "completedAt": "2025-12-27T21:56:27.1012285Z",
+                  "createdAt": "2025-12-24T21:56:27.1012288Z",
+                  "updatedAt": "2025-12-27T21:56:27.1012289Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "errors": [
+                    "Todo with ID '3fa85f64-5717-4562-b3fc-2c963f66afa6' was not found."
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTodoRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "$ref": "#/components/schemas/TodoPriority"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TodoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "$ref": "#/components/schemas/TodoPriority"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TodoPriority": {
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "type": "string",
+        "description": "Priority levels for TODO items."
+      },
+      "UpdateTodoRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "$ref": "#/components/schemas/TodoPriority"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Insira o token JWT",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [
+      ]
+    }
+  ]
+}

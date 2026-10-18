@@ -1,0 +1,19 @@
+platform :ios, '15.0'
+use_frameworks! :linkage => :static
+
+target 'TodoIosApp' do
+  pod 'app_ios', :path => '../app-ios'
+end
+
+post_install do |installer|
+  script_path = "Pods/Target Support Files/Pods-TodoIosApp/Pods-TodoIosApp-resources.sh"
+  next unless File.exist?(script_path)
+
+  script = File.read(script_path)
+  script = script.gsub('realpath -mq', 'realpath -q')
+  script = script.gsub(
+    'RESOURCES_TO_COPY=${PODS_ROOT}/resources-to-copy-${TARGETNAME}.txt',
+    'RESOURCES_TO_COPY="${TEMP_DIR}/resources-to-copy-${TARGETNAME}.txt"'
+  )
+  File.write(script_path, script)
+end

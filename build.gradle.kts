@@ -1,28 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.9.21"
-    application
-}
-
-group = "com.todoapp"
-version = "1.0.0"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(kotlin("stdlib"))
-    testImplementation(kotlin("test"))
-}
-
-application {
-    mainClass.set("com.todoapp.MainKt")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(17)
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.cocoapods) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
+    alias(libs.plugins.hilt.android) apply false
 }

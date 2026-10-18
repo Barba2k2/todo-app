@@ -1,0 +1,22 @@
+name: TodoIosApp
+options:
+  bundleIdPrefix: com.todoapp
+settings:
+  base:
+    DEVELOPMENT_TEAM: ""
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    SWIFT_VERSION: 5.0
+
+configs:
+  Debug: debug
+  Release: release
+
+targets:
+  TodoIosApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: [TodoIosApp]
+    settings:
+      base:
+        INFOPLIST_FILE: TodoIosApp/Info.plist
